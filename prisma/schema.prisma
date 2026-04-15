@@ -18,11 +18,56 @@ enum Gender {
   OTHER
 }
 
+
+enum Status { // Added missing Status enum
+  PRESENT
+  ABSENT
+  LATE
+}
+
+
+
 model Student {
   usn              String            @id
   name             String
   email            String            @unique
   dob              DateTime          @db.Date
   gender           Gender
+
+  attendance Attendance[]
+  marks      Marks[]
  @@map("students")
+}
+
+
+model Attendance{
+  date    DateTime   @db.Date 
+  usn     String     
+  student Student    @relation(fields: [usn] , references: [usn])
+  status  Status     
+
+  @@id([date , usn])
+  @@map("attendance")
+}
+
+
+model Marks{
+  usn String 
+  subcode String 
+  iaNo  Int     @map("IA_no")
+  marks Int
+  student Student @relation(fields:[usn] , references:[usn])
+  sub Sub @relation(fields:[subcode] , references:[subcode])
+
+  @@id([usn , iaNo , subcode])
+  @@map("marks")
+} 
+
+model Sub{
+  subcode String @id
+  sub String @unique 
+  max_marks Int 
+  marks Marks[]
+
+  @@map("subject")
 }

@@ -15,7 +15,7 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 
-
+//create multiple in students table
 app.post('/students' , async(req , res)=>{
   try{
     const student = await prisma.student.createMany(
@@ -36,6 +36,8 @@ app.post('/students' , async(req , res)=>{
 });
 
 
+
+//delete all from students table
 app.delete('/students' , async(req , res)=>{
   try{
     const result = await prisma.student.deleteMany({});
@@ -49,6 +51,9 @@ app.delete('/students' , async(req , res)=>{
     res.status(500).json({error:(error as Error).message});
   }
 });
+
+
+
 
 
 
