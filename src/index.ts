@@ -54,6 +54,21 @@ app.delete('/students' , async(req , res)=>{
 
 
 
+//enter attendance 
+app.post('/attendance' , async(req , res)=>{
+  try{
+    const attendance = await prisma.attendance.create({data:req.body})
+    res.status(200).json(
+      {
+        message:"attendance updated successfully",
+        no : req.body.usn
+      }
+    )
+  }catch(error){
+    res.status(500).json({error:(error as Error).message});
+  }
+})
+
 
 
 
