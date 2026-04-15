@@ -72,6 +72,42 @@ app.post('/attendance' , async(req , res)=>{
 
 
 
+//enter multiple marks
+app.post('/marks' , async(req , res)=>{
+  try{
+    const marks = await prisma.marks.createMany(
+      {data:req.body}
+    )
+    res.status(200).json(
+      {
+        message:"Marks Entered succesfully",
+        usn:req.body.usn
+      }
+    )
+  }catch(error){
+    res.status(500).json({error:(error as Error).message});
+  }
+})
+
+
+
+//create subjects
+app.post('/sub' , async(req , res)=>{
+  try{
+    const sub = await prisma.sub.createMany({data:req.body});
+    res.status(200).json({
+      message:"subjects added succesfully",
+    })
+  }catch(error){
+    res.status(500).json({error:(error as Error).message});
+  }
+});
+
+
+
+
+
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log('✅ Prisma + PostgreSQL connected successfully!');

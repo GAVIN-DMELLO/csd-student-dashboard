@@ -36,6 +36,7 @@ model Student {
 
   attendance Attendance[]
   marks      Marks[]
+  activities Activity[]
  @@map("students")
 }
 
@@ -70,4 +71,25 @@ model Sub{
   marks Marks[]
 
   @@map("subject")
+}
+
+
+model Activity{
+  usn             String   @id
+  coursera        Boolean  @default(false)
+  ebox            Boolean  @default(false)
+  coursera_extra  Boolean  @default(false)
+  student         Student  @relation(fields:[usn] , references:[usn])
+  extra_activity  ExtraActivity[]
+
+  @@map("activities")
+}
+
+
+model ExtraActivity{
+  usn                   String     
+  coursera_course_name  String 
+  activities            Activity   @relation(fields:[usn] , references:[usn])
+  @@id([usn , coursera_course_name])
+  @@map("extra_activities")
 }
