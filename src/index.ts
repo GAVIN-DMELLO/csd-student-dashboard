@@ -105,6 +105,44 @@ app.post('/sub' , async(req , res)=>{
 
 
 
+//populate activities
+app.post('/activities' , async(req , res)=>{
+  try{
+    const activities = await prisma.activity.createMany({data:req.body})
+    res.status(200).json(
+      {
+        message:"student activities updated succesfully",
+        count : activities.count
+      }
+    )
+  }catch(error){
+    res.status(500).json({error:(error as Error).message});
+  }
+});
+
+
+
+
+//populate extra activities
+app.post('/extra_activities' , async(req , res)=>{
+  try{
+    const extraActivities = await prisma.extraActivity.createMany({data:req.body})
+    res.status(200).json(
+      {
+        message:"student activities updated succesfully",
+        count : extraActivities.count
+      }
+    )
+  }catch(error){
+    res.status(500).json({error:(error as Error).message});
+  }
+});
+
+
+
+
+
+
 
 
 
