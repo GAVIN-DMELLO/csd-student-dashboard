@@ -23,7 +23,7 @@ export default function Home() {
               measuringMetric="Class Strength" 
               metricValue="45/47" 
               className="w-50 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_left,#282c4d,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)]
-               flex flex-col justify-center pl-5 gap-5" 
+               flex flex-col justify-center pl-5 gap-3" 
               Icon={Users}
               MenuIcon={EllipsisVertical}
 
@@ -33,7 +33,7 @@ export default function Home() {
             <AnalysisCard 
               measuringMetric="Class Average Marks" 
               metricValue="N/A" 
-              className="w-50 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_left,#282c4d,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)] flex flex-col justify-center pl-5 gap-5" 
+              className="w-50 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_right,#2b4241,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)] flex flex-col justify-center pl-5 gap-1" 
               Icon={Users}
               MenuIcon={EllipsisVertical}
             />
@@ -49,7 +49,7 @@ export default function Home() {
             <AnalysisCard 
               measuringMetric="Attendance Rate" 
               metricValue="N/A" 
-              className="w-50 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_left,#282c4d,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)] flex flex-col justify-center pl-5 gap-5" 
+              className="w-50 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_right,#2b4241,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)] flex flex-col justify-center pl-5 gap-5" 
               Icon={Users}
               MenuIcon={EllipsisVertical}
             />

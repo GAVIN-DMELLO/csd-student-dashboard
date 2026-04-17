@@ -2,6 +2,14 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { Plus_Jakarta_Sans } from 'next/font/google';
+
+
+const jakarta = Plus_Jakarta_Sans({ 
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'], // You need 700 or 800 for those bold numbers
+});
+
 
 
 
@@ -30,7 +38,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[rgba(23,24,33,1)]">{children}</body>
+      <body className="min-h-full flex flex-col bg-[rgba(23,24,33,1)] {jakarta.className}">{children}</body>
     </html>
   );
 }

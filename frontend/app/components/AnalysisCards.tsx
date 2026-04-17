@@ -15,7 +15,7 @@ export default function AnalysisCard({measuringMetric , metricValue , className 
         <Icon className="w-6 h-6 text-white" />
         <MenuIcon className="w-6 h-6 text-white" />
       </div>
-      <p className="text-[rgba(86,87,105,1)]">{measuringMetric}</p>
+      <p className="text-[rgba(86,87,105,1)] w-10">{measuringMetric}</p>
       <span className="text-[rgba(253,253,255,1)] font-bold text-2xl">{metricValue}</span>
     </div>
   );
