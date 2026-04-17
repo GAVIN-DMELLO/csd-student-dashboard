@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import AnalysisCard from './components/AnalysisCards';
-import { Users, GraduationCap, Award, BookOpen } from 'lucide-react';
+import { Users, EllipsisVertical } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -17,36 +17,41 @@ export default function Home() {
             <input type="text" placeholder="search" className="bg-[rgba(23,24,33,1)] text-white placeholder-white w-70 h-10 rounded-2xl pl-7 "/>
           </header>
 
-          <section className="flex gap-4 ml-4">        
+          <section className="flex gap-4 ml-25 mt-15">        
             
             <AnalysisCard 
               measuringMetric="Class Strength" 
-              metricValue={47} 
-              className="w-60 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_left,#282c4d,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)]
-              " 
+              metricValue="45/47" 
+              className="w-50 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_left,#282c4d,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)]
+               flex flex-col justify-center pl-5 gap-5" 
               Icon={Users}
+              MenuIcon={EllipsisVertical}
+
             />
 
 
             <AnalysisCard 
               measuringMetric="Class Average Marks" 
-              metricValue={0} 
-              className="w-60 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_left,#282c4d,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)]" 
+              metricValue="N/A" 
+              className="w-50 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_left,#282c4d,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)] flex flex-col justify-center pl-5 gap-5" 
               Icon={Users}
+              MenuIcon={EllipsisVertical}
             />
 
             <AnalysisCard 
               measuringMetric="Total Students" 
-              metricValue={0} 
-              className="w-60 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_left,#282c4d,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)]" 
+              metricValue="N/A" 
+              className="w-50 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_left,#282c4d,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)] flex flex-col justify-center  pl-5 gap-5" 
               Icon={Users}
+              MenuIcon={EllipsisVertical}
             />
 
             <AnalysisCard 
               measuringMetric="Attendance Rate" 
-              metricValue={0} 
-              className="w-60 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_left,#282c4d,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)]" 
+              metricValue="N/A" 
+              className="w-50 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_left,#282c4d,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)] flex flex-col justify-center pl-5 gap-5" 
               Icon={Users}
+              MenuIcon={EllipsisVertical}
             />
 
           </section>
