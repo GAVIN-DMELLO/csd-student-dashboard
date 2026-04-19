@@ -51,7 +51,7 @@ export default function Home() {
             
             <AnalysisCard 
               measuringMetric="Class Strength" 
-              metricValue="{${studentCount}/47}" 
+              metricValue={`${studentCount}/47`}
               className="w-50 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_left,#282c4d,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)]
                flex flex-col justify-center pl-5 gap-3" 
               Icon={Users}
