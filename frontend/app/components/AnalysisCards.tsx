@@ -2,7 +2,7 @@ import { LucideIcon } from 'lucide-react';
 
 type AnalyticProps = {
   measuringMetric: string;
-  metricValue: string;
+  metricValue: string | number;
   className?: string; 
   Icon: LucideIcon;
   MenuIcon: LucideIcon;
