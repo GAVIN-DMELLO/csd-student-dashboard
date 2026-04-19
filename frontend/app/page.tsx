@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
 
 import AnalysisCard from './components/AnalysisCards';
+
+
 import { Users, EllipsisVertical } from 'lucide-react';
 import { useState, useEffect } from "react";
 
@@ -79,6 +83,11 @@ export default function Home() {
               Icon={Users}
               MenuIcon={EllipsisVertical}
             />
+
+            <section className="w-full">
+              <h2 className="text-2xl font-semibold mb-6">Marks Overview</h2>
+              <MarksChart /> 
+            </section>
 
           </section>
         </main>

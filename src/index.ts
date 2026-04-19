@@ -30,6 +30,33 @@ app.get('/students', async (req, res) => {
   }
 });
 
+
+//get usn and their marks for bar graph
+app.get('/marks', async (req, res) => {
+  try {
+    const studentMarks = await prisma.marks.findMany({
+      select: {
+        usn: true,   // For the X-axis labels
+        score: true, // For the Y-axis bar height
+      },
+      orderBy: {
+        usn: 'asc',
+      },
+    });
+
+    res.status(200).json(studentMarks);
+
+  } catch (error) {
+    console.error("Prisma Fetch Error:", error);
+    res.status(500).json({ 
+      error: "Failed to fetch marks data",
+      details: (error as Error).message 
+    });
+  }
+});
+
+
+
 //create multiple in students table
 app.post('/students' , async(req , res)=>{
   try{
