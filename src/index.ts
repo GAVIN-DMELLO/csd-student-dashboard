@@ -15,6 +15,21 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 
+
+//get number of students
+app.get('/students', async (req, res) => {
+  try {
+    const studentCount = await prisma.student.count();
+    res.status(200).json({
+      success: true,
+      count: studentCount
+    });
+  } catch (error) {
+    console.error("Prisma Count Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 //create multiple in students table
 app.post('/students' , async(req , res)=>{
   try{
