@@ -2,8 +2,34 @@ import Image from "next/image";
 
 import AnalysisCard from './components/AnalysisCards';
 import { Users, EllipsisVertical } from 'lucide-react';
+import { useState, useEffect } from "react";
 
 export default function Home() {
+
+  const [studentCount, setStudentCount] = useState<string | number>("...");
+
+  const getStudentCount = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/students`);
+      
+      if (!response.ok) throw new Error("Network response failed");
+      
+      const data = await response.json();
+
+      setStudentCount(data.count); 
+    } catch (error) {
+      console.error("Fetch error:", error);
+      setStudentCount("Error");
+    }
+  };
+
+  useEffect(() => {
+    getStudentCount();
+  }, []);
+
+
+
+
   return (
     <>
       <div className="grid grid-cols-[150px_1fr_300px] gap-4">
@@ -21,12 +47,12 @@ export default function Home() {
             
             <AnalysisCard 
               measuringMetric="Class Strength" 
-              metricValue="45/47" 
+              metricValue="{${studentCount}/47}" 
               className="w-50 h-42 rounded-3xl border border-white/5 bg-[radial-gradient(circle_at_top_left,#282c4d,#21222d,#21222d)] shadow-2xl text-[rgba(86,87,105,1)]
                flex flex-col justify-center pl-5 gap-3" 
               Icon={Users}
               MenuIcon={EllipsisVertical}
-
+              
             />
 
 
