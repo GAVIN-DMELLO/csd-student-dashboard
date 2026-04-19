@@ -9,7 +9,7 @@ type AnalyticProps = {
   Marks : LucideIcon;
 }
 
-export default function AnalysisCard({measuringMetric , metricValue , className , Icon , MenuIcon , Marks}:AnalyticProps) {
+export default function AnalysisCard({measuringMetric , metricValue , className , Icon , MenuIcon}:AnalyticProps) {
   return (
     <div className={`${className}`}>
       <div className="flex justify-between">
