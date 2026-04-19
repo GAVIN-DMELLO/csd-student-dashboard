@@ -11,10 +11,10 @@ export default function Home() {
         <main>
           <header className="flex justify-between">
             <h1>
-              <span className="block text-3xl font-bold text-white">Computer</span>
-              <span className="block text-sm text-white">Science And Design</span>
+              <span className="block text-4xl font-bold tracking-tighter text-white leading-tight">Computer</span>
+              <span className="block text-sm font-medium tracking-wide text-slate-400">Science And Design</span>
             </h1>
-            <input type="text" placeholder="search" className="bg-[rgba(23,24,33,1)] text-white placeholder-white w-70 h-10 rounded-2xl pl-7 "/>
+            <input type="text" placeholder="search" className="bg-[#303033] text-white placeholder-white w-70 h-10 rounded-2xl pl-7 "/>
           </header>
 
           <section className="flex gap-4 ml-25 mt-15">        
