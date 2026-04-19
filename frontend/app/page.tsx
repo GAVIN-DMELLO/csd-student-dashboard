@@ -84,10 +84,6 @@ export default function Home() {
               MenuIcon={EllipsisVertical}
             />
 
-            <section className="w-full">
-              <h2 className="text-2xl font-semibold mb-6">Marks Overview</h2>
-              <MarksChart /> 
-            </section>
 
           </section>
         </main>
