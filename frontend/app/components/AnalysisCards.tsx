@@ -6,7 +6,6 @@ type AnalyticProps = {
   className?: string; 
   Icon: LucideIcon;
   MenuIcon: LucideIcon;
-  Marks : LucideIcon;
 }
 
 export default function AnalysisCard({measuringMetric , metricValue , className , Icon , MenuIcon}:AnalyticProps) {
