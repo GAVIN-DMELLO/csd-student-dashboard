@@ -30,7 +30,7 @@ export default function MarksChart() {
   return (
     <div 
       style={{ backgroundColor: 'rgba(23, 24, 33)' }} 
-      className="h-[400px] w-full rounded-2xl p-8 border border-white/5"
+      className="h-100 w-full rounded-2xl p-12  "
     >
       
 
@@ -44,7 +44,6 @@ export default function MarksChart() {
             </linearGradient>
           </defs>
 
-          <CartesianGrid strokeDasharray="0" vertical={false} stroke="#2a2b36" />
           
           <XAxis 
             dataKey="usn" 
