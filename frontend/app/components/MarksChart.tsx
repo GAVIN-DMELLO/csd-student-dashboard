@@ -32,6 +32,11 @@ export default function MarksChart() {
       style={{ backgroundColor: 'rgba(23, 24, 33)' }} 
       className="h-100 w-full rounded-2xl p-12  "
     >
+
+      <div className="mb-8">
+        <p className="text-gray-400 text-sm font-medium">4th Sem </p>
+        <h2 className="text-3xl font-bold text-white">Student Marks</h2>
+      </div>
       
 
       <ResponsiveContainer width="100%" height="100%">
