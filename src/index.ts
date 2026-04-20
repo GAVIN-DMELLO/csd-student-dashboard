@@ -37,7 +37,7 @@ app.get('/marks', async (req, res) => {
     const studentMarks = await prisma.marks.findMany({
       select: {
         usn: true,   // For the X-axis labels
-        score: true, // For the Y-axis bar height
+        marks: true, // For the Y-axis bar height
       },
       orderBy: {
         usn: 'asc',
