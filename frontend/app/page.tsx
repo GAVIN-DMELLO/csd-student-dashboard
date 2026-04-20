@@ -4,6 +4,8 @@ import Image from "next/image";
 
 import AnalysisCard from './components/AnalysisCards';
 import Sidebar from './components/Sidebar';
+import MarksChart from './components/MarksChart';
+
 
 
 import { Users, EllipsisVertical } from 'lucide-react';
@@ -50,7 +52,9 @@ export default function Home() {
             <input type="text" placeholder="search" className="bg-[#303033] text-white placeholder-white w-70 h-10 rounded-2xl pl-7 "/>
           </header>
 
-          <section className="flex gap-4 ml-25 mt-15">        
+          <section className="flex flex-col ">    
+
+            <div className="flex flex-row gap-4 ml-25 mt-15 mb-10"> 
             
             <AnalysisCard 
               measuringMetric="Class Strength" 
@@ -86,6 +90,10 @@ export default function Home() {
               Icon={Users}
               MenuIcon={EllipsisVertical}
             />
+            </div>   
+
+
+            <MarksChart/>
 
 
           </section>
