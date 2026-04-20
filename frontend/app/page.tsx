@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 import AnalysisCard from './components/AnalysisCards';
+import Sidebar from './components/Sidebar';
 
 
 import { Users, EllipsisVertical } from 'lucide-react';
@@ -37,7 +38,9 @@ export default function Home() {
   return (
     <>
       <div className="grid grid-cols-[150px_1fr_300px] gap-4">
-        <aside className="bg-red-500 min-h-screen">sidebar</aside>
+        <aside className=" min-h-screen">
+          <Sidebar/>
+        </aside>
         <main>
           <header className="flex justify-between">
             <h1>
