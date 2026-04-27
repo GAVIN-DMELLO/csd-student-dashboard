@@ -81,7 +81,7 @@ export default function MarksChart() {
             dataKey="marks" 
             fill="url(#barGradient)" // Apply the gradient here
             radius={[2, 2, 0, 0]} 
-            barSize={40}
+            barSize={30}
             /* 2. This adds the faint bar behind the actual data */
             background={{ fill: 'rgba(255, 255, 255, 0.05)', radius: 2 }}
           >

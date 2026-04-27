@@ -19,7 +19,7 @@ app.use(express.json());
 //get number of students
 app.get('/students', async (req, res) => {
   try {
-    const studentCount = await prisma.student.count();
+    const studentCount = await prisma.student.findMany();
     res.status(200).json({
       success: true,
       count: studentCount
@@ -164,7 +164,6 @@ app.post('/activities' , async(req , res)=>{
 
 
 
-
 //populate extra activities
 app.post('/extra_activities' , async(req , res)=>{
   try{
@@ -179,13 +178,6 @@ app.post('/extra_activities' , async(req , res)=>{
     res.status(500).json({error:(error as Error).message});
   }
 });
-
-
-
-
-
-
-
 
 
 app.listen(PORT, () => {

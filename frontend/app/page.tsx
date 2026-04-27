@@ -5,6 +5,7 @@ import Image from "next/image";
 import AnalysisCard from './components/AnalysisCards';
 import Sidebar from './components/Sidebar';
 import MarksChart from './components/MarksChart';
+import Logo from './components/Logo'
 
 
 
@@ -44,12 +45,12 @@ export default function Home() {
           <Sidebar/>
         </aside>
         <main>
-          <header className="flex justify-between">
+          <header className="flex justify-between items-center">
             <h1>
-              <span className="block text-4xl font-bold tracking-tighter text-white leading-tight">Computer</span>
-              <span className="block text-sm font-medium tracking-wide text-slate-400">Science And Design</span>
+              <span className="block text-4xl font-bold tracking-tighter text-white leading-tight ml-25 mt-5">Computer</span>
+              <span className="block text-sm font-medium tracking-wide text-slate-400 ml-25">Science And Design</span>
             </h1>
-            <input type="text" placeholder="search" className="bg-[#303033] text-white placeholder-white w-70 h-10 rounded-2xl pl-7 "/>
+            <input type="text" placeholder="search" className="bg-[#303033] text-white placeholder-white w-70 h-10 rounded-2xl pl-7 mr-25 mt-10 "/>
           </header>
 
           <section className="flex flex-col ">    
@@ -98,7 +99,9 @@ export default function Home() {
 
           </section>
         </main>
-        <aside className="bg-red-500">right panel</aside>
+        <aside >
+          <Logo />
+        </aside>
       </div>
     </>
   );
