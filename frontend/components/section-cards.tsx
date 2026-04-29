@@ -16,9 +16,9 @@ import { useCardData } from "@/app/customComponents/fetchCardData";
 
 export function SectionCards() {
 
-  const { data:studentData, isLoading: loadingStudent } = useCardData("students");
-  const { data:studentMarks, isLoading: loadingMarks } = useCardData("marks");
-  const { data:studentAttendance, isLoading: loadingAttendance } = useCardData("attendance");
+  const { data:studentData, isLoading: loadingStudent } = useCardData("card1");
+  const { data:studentMarks, isLoading: loadingMarks } = useCardData("card2");
+  const { data:studentAttendance, isLoading: loadingAttendance } = useCardData("card3");
 
 
   const totalStudents = loadingStudent ? "..." : (studentData?.count?.length || 0);
