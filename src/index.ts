@@ -109,7 +109,7 @@ app.delete('/students' , async(req , res)=>{
 //enter attendance 
 app.post('/attendance' , async(req , res)=>{
   try{
-    const attendance = await prisma.attendance.create({data:req.body})
+    const attendance = await prisma.attendance.createMany({data:req.body})
     res.status(200).json(
       {
         message:"attendance updated successfully",
