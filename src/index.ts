@@ -16,8 +16,8 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 
-//get number of students
-app.get('/students', async (req, res) => {
+//get number of students for first card
+app.get('/card1', async (req, res) => {
   try {
     const studentCount = await prisma.student.findMany();
     res.status(200).json({
@@ -31,8 +31,8 @@ app.get('/students', async (req, res) => {
 });
 
 
-//get usn and their marks for bar graph
-app.get('/marks', async (req, res) => {
+//get avg class marks for second card
+app.get('/card2', async (req, res) => {
   try {
     const studentMarks = await prisma.$queryRaw`select avg(marks) as average from "marks"`;
 
@@ -46,6 +46,20 @@ app.get('/marks', async (req, res) => {
     });
   }
 });
+
+
+
+app.get("/card3", async(req , res) => {
+  try{
+    const attendance = await prisma.$queryRaw`select count(status) as attendance from "attendance"`;
+
+    res.status(200).json(attendance);
+  }catch(error){
+    res.status(500).json({
+      error:"failed to fetch attendance"
+    })
+  }
+})
 
 
 
