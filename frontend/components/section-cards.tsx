@@ -79,7 +79,7 @@ export function SectionCards() {
         <CardHeader>
           <CardDescription>Today's Attendance</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            0%
+            {attendancePercentage}%
           </CardTitle>
           <CardAction>
             <Badge variant="outline">
