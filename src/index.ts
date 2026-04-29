@@ -34,15 +34,7 @@ app.get('/students', async (req, res) => {
 //get usn and their marks for bar graph
 app.get('/marks', async (req, res) => {
   try {
-    const studentMarks = await prisma.marks.findMany({
-      select: {
-        usn: true,   // For the X-axis labels
-        marks: true, // For the Y-axis bar height
-      },
-      orderBy: {
-        usn: 'asc',
-      },
-    });
+    const studentMarks = await prisma.$queryRaw`select avg(marks) as average from "marks"`;
 
     res.status(200).json(studentMarks);
 

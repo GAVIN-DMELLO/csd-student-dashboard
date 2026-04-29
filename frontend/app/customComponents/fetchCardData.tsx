@@ -7,8 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 
 
 
-const fetchDataFromDB = async () => {
-  const response = await fetch("https://csd-student-dashboard.onrender.com/students");
+const fetchDataFromDB = async (endpoint:string) => {
+  const response = await fetch(`https://csd-student-dashboard.onrender.com/${endpoint}`);
 
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
@@ -21,10 +21,10 @@ const fetchDataFromDB = async () => {
 
 
 
-export function useCardData() {
+export function useCardData(endpoint : string) {
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["cardData"],
-    queryFn: fetchDataFromDB,
+    queryKey: ["cardData" , endpoint],
+    queryFn: () => fetchDataFromDB(endpoint),
   });
 
   console.log("Data from TanStack Query:", data);
