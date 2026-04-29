@@ -18,10 +18,12 @@ export function SectionCards() {
 
   const { data:studentData, isLoading: loadingStudent } = useCardData("students");
   const { data:studentMarks, isLoading: loadingMarks } = useCardData("marks");
+  const { data:studentAttendance, isLoading: loadingAttendance } = useCardData("attendance");
 
 
   const totalStudents = loadingStudent ? "..." : (studentData?.count?.length || 0);
-  const averageClassMarks = loadingMarks ? "..." : (studentData?.count?.length || 0);
+  const averageClassMarks = loadingMarks ? "..." : Number(studentMarks[0]?.average || 0).toFixed(2);
+  const attendancePercentage = loadingAttendance? "..." : (studentAttendance);
 
   return (
     <div className="grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4 dark:*:data-[slot=card]:bg-card">
@@ -51,7 +53,7 @@ export function SectionCards() {
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Class Average</CardDescription>
+          <CardDescription>Class Average Marks</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             {averageClassMarks}
           </CardTitle>
@@ -59,7 +61,7 @@ export function SectionCards() {
             <Badge variant="outline">
               <TrendingDownIcon
               />
-              -20%
+              +0.0%
             </Badge>
           </CardAction>
         </CardHeader>
@@ -75,15 +77,15 @@ export function SectionCards() {
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Active Accounts</CardDescription>
+          <CardDescription>Today's Attendance</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            45,678
+            0%
           </CardTitle>
           <CardAction>
             <Badge variant="outline">
               <TrendingUpIcon
               />
-              +12.5%
+              +0.0%
             </Badge>
           </CardAction>
         </CardHeader>
