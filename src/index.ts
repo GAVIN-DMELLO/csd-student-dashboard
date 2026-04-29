@@ -51,7 +51,11 @@ app.get('/card2', async (req, res) => {
 
 app.get("/card3", async(req , res) => {
   try{
-    const attendance = await prisma.$queryRaw`select count(status) as attendance from "attendance"`;
+    const attendance = await prisma.attendance.count({
+      where:{
+        status:'PRESENT'
+      }
+    })
 
     res.status(200).json(attendance);
   }catch(error){
