@@ -5,6 +5,7 @@ import "./globals.css";
 import { Plus_Jakarta_Sans } from 'next/font/google';
 
 import { TooltipProvider } from "@/components/ui/tooltip"
+import Providers from './providers/QueryProvider'
 
 
 const jakarta = Plus_Jakarta_Sans({ 
@@ -41,7 +42,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full {jakarta.className}">
-        <TooltipProvider>{children}</TooltipProvider>
+        <Providers><TooltipProvider>{children}</TooltipProvider></Providers>
       </body>
     </html>
   );
