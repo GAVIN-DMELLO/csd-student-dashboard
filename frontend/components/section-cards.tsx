@@ -23,7 +23,8 @@ export function SectionCards() {
 
   const totalStudents = loadingStudent ? "..." : (studentData?.count?.length || 0);
   const averageClassMarks = loadingMarks ? "..." : Number(studentMarks[0]?.average || 0).toFixed(2);
-  const attendancePercentage = loadingAttendance? "..." : (studentAttendance);
+  const attendanceNumber = loadingAttendance? "..." : (studentAttendance);
+  const attendancePercentage = ((attendanceNumber/totalStudents)*100).toFixed(2);
 
   return (
     <div className="grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4 dark:*:data-[slot=card]:bg-card">
