@@ -99,15 +99,15 @@ export function SectionCards() {
       </Card>
       <Card className="@container/card">
         <CardHeader>
-          <CardDescription>Growth Rate</CardDescription>
+          <CardDescription>Pass / Fail Ratio</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            4.5%
+            0 / 0
           </CardTitle>
           <CardAction>
             <Badge variant="outline">
               <TrendingUpIcon
               />
-              +4.5%
+              +0.0%
             </Badge>
           </CardAction>
         </CardHeader>
