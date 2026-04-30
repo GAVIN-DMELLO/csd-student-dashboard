@@ -86,9 +86,12 @@ app.get("/chart", async (req, res) => {
       by: ["usn"],
       _avg: {
         marks: true
+      },
+      orderBy: {
+        usn: "asc"
       }
     });
-    
+
     res.json(chartData);
   } catch (err) {
     console.error(err);
