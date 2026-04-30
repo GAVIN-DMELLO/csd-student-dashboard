@@ -67,6 +67,36 @@ app.get("/card3", async(req , res) => {
 
 
 
+// app.get("/card4" , async(req , res) => {
+//   try{
+//     const getMarks = await prisma.marks.count({
+//       where:{
+        
+//       }
+//     })
+//   }
+// })
+
+
+
+//for chart analysis
+app.get("/chart", async (req, res) => {
+  try {
+    const chartData = await prisma.marks.groupBy({
+      by: ["usn"],
+      _avg: {
+        marks: true
+      }
+    });
+    
+    res.json(chartData);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+});
+
+
 //create multiple in students table
 app.post('/students' , async(req , res)=>{
   try{

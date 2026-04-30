@@ -30,7 +30,7 @@ import {
   ToggleGroupItem,
 } from "@/components/ui/toggle-group"
 
-export const description = "An interactive area chart"
+export const description = "4TH SEM IA MARKS ANALYSIS"
 
 const chartData = [
   { date: "2024-04-01", desktop: 222, mobile: 150 },
@@ -167,11 +167,11 @@ export function ChartAreaInteractive() {
   return (
     <Card className="@container/card">
       <CardHeader>
-        <CardTitle>Total Visitors</CardTitle>
+        <CardTitle>IA MARKS ANALYSIS</CardTitle>
         <CardDescription>
-          <span className="hidden @[540px]/card:block">
-            Total for the last 3 months
-          </span>
+          {/* <span className="hidden @[540px]/card:block">
+            
+          </span> */}
           <span className="@[540px]/card:hidden">Last 3 months</span>
         </CardDescription>
         <CardAction>
