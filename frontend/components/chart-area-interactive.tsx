@@ -30,6 +30,11 @@ import {
   ToggleGroupItem,
 } from "@/components/ui/toggle-group"
 
+
+
+import { useChartData } from "@/app/customComponents/fetchChartData";
+
+
 export const description = "4TH SEM IA MARKS ANALYSIS"
 
 const chartData = [
@@ -141,6 +146,9 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function ChartAreaInteractive() {
+  const { data, isLoading, error } = useChartData();
+  // console.log(data);
+
   const isMobile = useIsMobile()
   const [timeRange, setTimeRange] = React.useState("90d")
 
@@ -150,19 +158,8 @@ export function ChartAreaInteractive() {
     }
   }, [isMobile])
 
-  const filteredData = chartData.filter((item) => {
-    const date = new Date(item.date)
-    const referenceDate = new Date("2024-06-30")
-    let daysToSubtract = 90
-    if (timeRange === "30d") {
-      daysToSubtract = 30
-    } else if (timeRange === "7d") {
-      daysToSubtract = 7
-    }
-    const startDate = new Date(referenceDate)
-    startDate.setDate(startDate.getDate() - daysToSubtract)
-    return date >= startDate
-  })
+ 
+  const filteredData = data || [];
 
   return (
     <Card className="@container/card">
@@ -182,9 +179,9 @@ export function ChartAreaInteractive() {
             variant="outline"
             className="hidden *:data-[slot=toggle-group-item]:px-4! @[767px]/card:flex"
           >
-            <ToggleGroupItem value="90d">Last 3 months</ToggleGroupItem>
+            {/* <ToggleGroupItem value="90d">Last 3 months</ToggleGroupItem>
             <ToggleGroupItem value="30d">Last 30 days</ToggleGroupItem>
-            <ToggleGroupItem value="7d">Last 7 days</ToggleGroupItem>
+            <ToggleGroupItem value="7d">Last 7 days</ToggleGroupItem> */}
           </ToggleGroup>
           <Select value={timeRange} onValueChange={setTimeRange}>
             <SelectTrigger
@@ -242,42 +239,35 @@ export function ChartAreaInteractive() {
             </defs>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="date"
+              dataKey="usn"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
               minTickGap={32}
-              tickFormatter={(value) => {
-                const date = new Date(value)
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                })
-              }}
             />
             <ChartTooltip
               cursor={false}
               content={
                 <ChartTooltipContent
-                  labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                    })
-                  }}
+                  // labelFormatter={(value) => {
+                  //   return new Date(value).toLocaleDateString("en-US", {
+                  //     month: "short",
+                  //     day: "numeric",
+                  //   })
+                  // }}
                   indicator="dot"
                 />
               }
             />
             <Area
-              dataKey="mobile"
+              dataKey="marks"
               type="natural"
               fill="url(#fillMobile)"
               stroke="var(--color-mobile)"
               stackId="a"
             />
             <Area
-              dataKey="desktop"
+              dataKey="marks"
               type="natural"
               fill="url(#fillDesktop)"
               stroke="var(--color-desktop)"
