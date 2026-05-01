@@ -136,23 +136,31 @@ app.get("/api/marks/analysis/:usn", async (req, res) => {
   const { usn } = req.params;
 
   try {
-    const marks = await prisma.marks.findMany({
-      where: {
-        usn: usn.toUpperCase(), 
-      },
-      orderBy: {
-        iaNo: 'asc',
-      },
+    const rawMarks = await prisma.marks.findMany({
+      where: { usn: usn.toUpperCase() },
+      orderBy: { subcode: 'asc' }
     });
 
-    if (marks.length === 0) {
-      return res.status(200).json([]);
-    }
+    // 1. Get unique subject codes (ADA, APT, BIO, etc.)
+    const subjects = [...new Set(rawMarks.map(m => m.subcode))];
 
-    res.json(marks);
+    // 2. Format data for the two waves
+    const chartData = subjects.map(code => {
+      const ia1 = rawMarks.find(m => m.subcode === code && m.iaNo === 1);
+      const ia2 = rawMarks.find(m => m.subcode === code && m.iaNo === 2);
+
+      return {
+        subject: code,
+        wave1: ia1 ? ia1.marks : 0,
+        // If IA2 doesn't exist, use IA1 marks for the second wave
+        wave2: ia2 ? ia2.marks : (ia1 ? ia1.marks : 0)
+      };
+    });
+
+    res.json(chartData);
   } catch (error) {
-    console.error("Error fetching analysis marks:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    const errorMessage = (error as Error).message;
+    res.status(500).json({ error: errorMessage });
   }
 });
 
