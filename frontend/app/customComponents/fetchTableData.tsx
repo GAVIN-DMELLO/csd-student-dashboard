@@ -6,13 +6,14 @@ import { useQuery } from "@tanstack/react-query"
 
 async function fetchStudents() {
   try {
-    const response = await fetch("https://csd-student-dashboard.onrender.com/students");
+    const response = await fetch("https://csd-student-dashboard.onrender.com/studentstable");
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
     const data = await response.json();
+    console.log(`the student data is here + {data`);
     
     return Array.isArray(data) ? data : [];
   } catch (error) {

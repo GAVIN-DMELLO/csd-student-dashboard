@@ -94,8 +94,11 @@ import {
 } from "@/components/ui/tabs"
 import { GripVerticalIcon, CircleCheckIcon, LoaderIcon, EllipsisVerticalIcon, Columns3Icon, ChevronDownIcon, PlusIcon, ChevronsLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronsRightIcon, TrendingUpIcon } from "lucide-react"
 
+
+import { useStudents} from  "@/app/customComponents/fetchTableData"
+
 export const schema = z.object({
-  usn: z.number(),
+  usn: z.string(),
   name: z.string(),
   email: z.string(),
   dob: z.string(),
@@ -105,7 +108,7 @@ export const schema = z.object({
 })
 
 // Create a separate component for the drag handle
-function DragHandle({ id }: { id: number }) {
+function DragHandle({ id }: { id: string }) {
   const { attributes, listeners } = useSortable({
     id,
   })
@@ -301,7 +304,10 @@ export function DataTable({
 }: {
   data: z.infer<typeof schema>[]
 }) {
-  const [data, setData] = React.useState(() => initialData)
+  const { data: fetchedData, isLoading, isError, error } = useStudents();
+  const [data, setData] = React.useState<z.infer<typeof schema>[]>([]);
+
+  // const [data, setData] = React.useState(() => initialData)
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
@@ -313,6 +319,28 @@ export function DataTable({
     pageIndex: 0,
     pageSize: 10,
   })
+
+  React.useEffect(() => {
+    if (fetchedData) {
+      setData(fetchedData);
+    }
+  }, [fetchedData]);
+
+
+  if (isLoading) {
+    return (
+      <div className="flex h-64 w-full items-center justify-center">
+        <LoaderIcon className="animate-spin mr-2" /> 
+        Loading CSD Students...
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <div className="text-destructive p-4">Error: {error?.message}</div>;
+  }
+
+
   const sortableId = React.useId()
   const sensors = useSensors(
     useSensor(MouseSensor, {}),

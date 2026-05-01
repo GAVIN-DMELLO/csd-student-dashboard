@@ -7,9 +7,14 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 
 import data from "./data.json"
 
+import { useStudents } from "@/app/customComponents/fetchTableData"
+import { Loader2 } from "lucide-react"
+
 
 
 export default function Page() {
+
+  const { data: studentData, isLoading, isError } = useStudents()
 
 
   return (
@@ -31,7 +36,20 @@ export default function Page() {
               <div className="px-4 lg:px-6">
                 <ChartAreaInteractive />
               </div>
-              <DataTable data={data} />
+
+              {isLoading ? (
+                <div className="flex justify-center py-10">
+                  <Loader2 className="animate-spin h-8 w-8 text-muted-foreground" />
+                  <span className="ml-2">Loading CSD Records...</span>
+                </div>
+              ) : isError ? (
+                <div className="text-center py-10 text-destructive">
+                  Failed to load student database.
+                </div>
+              ) : (
+                <DataTable data={studentData ?? []} />
+              )}
+
             </div>
           </div>
         </div>
