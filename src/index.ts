@@ -133,36 +133,35 @@ app.get("/studentstable" , async(req , res) => {
 
 //for each student graph analysis in the table 
 app.get("/api/marks/analysis/:usn", async (req, res) => {
-  const { usn } = req.params;
-
   try {
+    const { usn } = req.params;
+    const searchUsn = usn.trim().toUpperCase(); // Matches NeonDB records like 4AL24CG001
+
     const rawMarks = await prisma.marks.findMany({
-      where: { usn: usn.toUpperCase() },
-      orderBy: { subcode: 'asc' }
+      where: { 
+        usn: searchUsn 
+      },
+      orderBy: {
+        subcode: 'asc' // Keeps subject order consistent for the graph
+      }
     });
 
-    // 1. Get unique subject codes (ADA, APT, BIO, etc.)
-    const subjects = [...new Set(rawMarks.map(m => m.subcode))];
+    console.log(`Searching for [${searchUsn}] - Rows found: ${rawMarks.length}`);
 
-    // 2. Format data for the two waves
-    const chartData = subjects.map(code => {
-      const ia1 = rawMarks.find(m => m.subcode === code && m.iaNo === 1);
-      const ia2 = rawMarks.find(m => m.subcode === code && m.iaNo === 2);
+    // CRITICAL: You must send the response back to the frontend
+    res.json(rawMarks); 
 
-      return {
-        subject: code,
-        wave1: ia1 ? ia1.marks : 0,
-        // If IA2 doesn't exist, use IA1 marks for the second wave
-        wave2: ia2 ? ia2.marks : (ia1 ? ia1.marks : 0)
-      };
-    });
-
-    res.json(chartData);
   } catch (error) {
-    const errorMessage = (error as Error).message;
-    res.status(500).json({ error: errorMessage });
+    if (error instanceof Error) {
+      res.status(500).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: "Unknown database error" });
+    }
   }
 });
+
+  
+
 
 
 
