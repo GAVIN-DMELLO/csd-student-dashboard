@@ -132,18 +132,30 @@ app.get("/studentstable" , async(req , res) => {
 
 
 //for each student graph analysis in the table 
-app.get("/marks/:usn", async (req, res) => {
+app.get("/api/marks/analysis/:usn", async (req, res) => {
   const { usn } = req.params;
+
   try {
-    const studentMarks = await prisma.marks.findMany({
-      where: { usn: usn },
-      orderBy: { iaNo: 'asc' }, // Orders them IA1, IA2, etc.
+    const marks = await prisma.marks.findMany({
+      where: {
+        usn: usn.toUpperCase(), 
+      },
+      orderBy: {
+        iaNo: 'asc',
+      },
     });
-    res.json(studentMarks);
+
+    if (marks.length === 0) {
+      return res.status(200).json([]);
+    }
+
+    res.json(marks);
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch marks" });
+    console.error("Error fetching analysis marks:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 
 //delete all from students table
