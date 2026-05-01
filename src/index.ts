@@ -121,6 +121,15 @@ app.post('/students' , async(req , res)=>{
 });
 
 
+app.get("/studentstable" , async(req , res) => {
+  try{
+    const student = await prisma.student.findMany();
+    res.status(200).json(student);
+  }catch(error){
+    res.status(500).json({error:(error as Error).message});
+  }
+})
+
 
 //delete all from students table
 app.delete('/students' , async(req , res)=>{
