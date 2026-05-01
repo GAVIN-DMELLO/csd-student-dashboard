@@ -131,6 +131,21 @@ app.get("/studentstable" , async(req , res) => {
 })
 
 
+//for each student graph analysis in the table 
+app.get("/marks/:usn", async (req, res) => {
+  const { usn } = req.params;
+  try {
+    const studentMarks = await prisma.marks.findMany({
+      where: { usn: usn },
+      orderBy: { iaNo: 'asc' }, // Orders them IA1, IA2, etc.
+    });
+    res.json(studentMarks);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch marks" });
+  }
+});
+
+
 //delete all from students table
 app.delete('/students' , async(req , res)=>{
   try{
