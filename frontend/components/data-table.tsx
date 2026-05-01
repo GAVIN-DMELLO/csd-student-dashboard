@@ -317,6 +317,9 @@ export function DataTable({
 }: {
   data: z.infer<typeof schema>[]
 }) {
+
+  const [isClient, setIsClient] = React.useState(false);
+
   const { data: fetchedData, isLoading, isError, error } = useStudents();
   const [data, setData] = React.useState<z.infer<typeof schema>[]>([]);
 
@@ -334,17 +337,21 @@ export function DataTable({
   })
 
   React.useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  React.useEffect(() => {
     if (fetchedData) {
       setData(fetchedData);
     }
   }, [fetchedData]);
 
 
-  if (isLoading) {
+  if (!isClient) {
     return (
       <div className="flex h-64 w-full items-center justify-center">
         <LoaderIcon className="animate-spin mr-2" /> 
-        Loading CSD Students...
+        Initializing Dashboard...
       </div>
     );
   }
