@@ -96,6 +96,7 @@ import { GripVerticalIcon, CircleCheckIcon, LoaderIcon, EllipsisVerticalIcon, Co
 
 
 import { useStudents} from  "@/app/customComponents/fetchTableData"
+import { useStudentMarks } from "@/app/customComponents/studentMarksHook"
 
 export const schema = z.object({
   usn: z.string(),
@@ -106,6 +107,17 @@ export const schema = z.object({
   limit: z.string(),
   reviewer: z.string(),
 })
+
+const chartConfig = {
+  wave1: {
+    label: "IA-1 Marks",
+    color: "hsl(var(--chart-1))",
+  },
+  wave2: {
+    label: "IA-2 Marks",
+    color: "hsl(var(--chart-2))",
+  },
+} satisfies ChartConfig
 
 // Create a separate component for the drag handle
 function DragHandle({ id }: { id: string }) {
@@ -633,19 +645,36 @@ const chartData = [
   { month: "June", desktop: 214, mobile: 140 },
 ]
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--primary)",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "var(--primary)",
-  },
-} satisfies ChartConfig
+
 
 function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
   const isMobile = useIsMobile()
+
+  const { data: rawData, isLoading, error } = useStudentMarks(item.usn);
+
+  // 2. FIX: This is now the ONLY 'chartData' variable in this block
+  const chartData = React.useMemo(() => {
+    // Logic to transform raw database rows into chart-friendly waves
+    if (!rawData || !Array.isArray(rawData)) return [];
+
+    // Get unique subject codes (ADA, APT, BIO, etc.)
+    const subjects = [...new Set(rawData.map((m: any) => m.subcode))];
+
+    return subjects.map(code => {
+      const ia1 = rawData.find((m: any) => m.subcode === code && m.iaNo === 1);
+      const ia2 = rawData.find((m: any) => m.subcode === code && m.iaNo === 2);
+
+      return {
+        subject: code,
+        wave1: ia1 ? ia1.marks : 0,
+        // If IA2 marks aren't available, we mirror IA1 for the visual effect
+        wave2: ia2 ? ia2.marks : (ia1 ? ia1.marks : 0)
+      };
+    });
+  }, [rawData]);
+
+
+  console.log(`Status for ${item.usn}:`, { isLoading, hasRawData: !!rawData, error });
 
   return (
     <Drawer direction={isMobile ? "bottom" : "right"}>
@@ -656,65 +685,66 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="gap-1">
-          <DrawerTitle>{item.usn}</DrawerTitle>
+          <DrawerTitle>{item.name} - Analysis</DrawerTitle>
           <DrawerDescription>
-            Showing total visitors for the last 6 months
+            Comparing IA-1 and IA-2 performance across subjects
           </DrawerDescription>
         </DrawerHeader>
         <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm">
           {!isMobile && (
             <>
-              <ChartContainer config={chartConfig}>
-                <AreaChart
-                  accessibilityLayer
-                  data={chartData}
-                  margin={{
-                    left: 0,
-                    right: 10,
-                  }}
-                >
-                  <CartesianGrid vertical={false} />
-                  <XAxis
-                    dataKey="month"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                    tickFormatter={(value) => value.slice(0, 3)}
-                    hide
-                  />
-                  <ChartTooltip
-                    cursor={false}
-                    content={<ChartTooltipContent indicator="dot" />}
-                  />
-                  <Area
-                    dataKey="mobile"
-                    type="natural"
-                    fill="var(--color-mobile)"
-                    fillOpacity={0.6}
-                    stroke="var(--color-mobile)"
-                    stackId="a"
-                  />
-                  <Area
-                    dataKey="desktop"
-                    type="natural"
-                    fill="var(--color-desktop)"
-                    fillOpacity={0.4}
-                    stroke="var(--color-desktop)"
-                    stackId="a"
-                  />
-                </AreaChart>
-              </ChartContainer>
-              <Separator />
-              <div className="grid gap-2">
-                <div className="flex gap-2 leading-none font-medium">
-                  Trending up by 5.2% this month{" "}
-                  <TrendingUpIcon className="size-4" />
-                </div>
-                <div className="text-muted-foreground">
-                  Showing total visitors for the last 6 months. This is just
-                  some random text to test the layout. It spans multiple lines
-                  and should wrap around.
-                </div>
+              <div className="h-64 w-full min-h-[250px]">
+                {isLoading ? (
+                  <div className="flex h-full items-center justify-center">
+                    Loading Marks...
+                  </div>
+                ) : error ? (
+                   <div className="flex h-full items-center justify-center text-destructive">
+                    Error loading marks data.
+                  </div>
+                ) : chartData && chartData.length > 0 ? (
+                  <ChartContainer config={chartConfig}>
+                    <AreaChart
+                      accessibilityLayer
+                      data={chartData}
+                      margin={{ left: 12, right: 12, top: 10 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="subject"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                      />
+                      <ChartTooltip
+                        cursor={false}
+                        content={<ChartTooltipContent indicator="dot" />}
+                      />
+                      <Area
+                        dataKey="wave1"
+                        name="IA-1"
+                        type="monotone"
+                        fill="var(--color-wave1)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-wave1)"
+                        strokeWidth={2}
+                      />
+                      <Area
+                        dataKey="wave2"
+                        name="IA-2"
+                        type="monotone"
+                        fill="var(--color-wave2)"
+                        fillOpacity={0.2}
+                        stroke="var(--color-wave2)"
+                        strokeWidth={2}
+                      />
+                    </AreaChart>
+                  </ChartContainer>
+                ) : (
+                  <div className="flex h-full items-center justify-center text-muted-foreground">
+                    No records found for this USN.
+                  </div>
+                )}
               </div>
               <Separator />
             </>
@@ -762,3 +792,5 @@ function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
     </Drawer>
   )
 }
+
+
