@@ -345,15 +345,6 @@ export function DataTable({
   }, [initialData]);
 
 
-  if (!isClient) {
-    return (
-      <div className="flex h-64 w-full items-center justify-center">
-        <LoaderIcon className="animate-spin mr-2" /> 
-        Initializing Dashboard...
-      </div>
-    );
-  }
-
   const sortableId = React.useId()
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
@@ -390,6 +381,15 @@ export function DataTable({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
+
+  if (!isClient) {
+    return (
+      <div className="flex h-64 w-full items-center justify-center">
+        <LoaderIcon className="animate-spin mr-2" /> 
+        Initializing Dashboard...
+      </div>
+    );
+  }
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
