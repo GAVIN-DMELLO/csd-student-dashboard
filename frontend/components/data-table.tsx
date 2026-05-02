@@ -95,7 +95,7 @@ import {
 import { GripVerticalIcon, CircleCheckIcon, LoaderIcon, EllipsisVerticalIcon, Columns3Icon, ChevronDownIcon, PlusIcon, ChevronsLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronsRightIcon, TrendingUpIcon } from "lucide-react"
 
 
-import { useStudents} from  "@/app/customComponents/fetchTableData"
+// import { useStudents} from  "@/app/customComponents/fetchTableData"
 import { useStudentMarks } from "@/app/customComponents/studentMarksHook"
 
 export const schema = z.object({
@@ -320,10 +320,10 @@ export function DataTable({
 
   const [isClient, setIsClient] = React.useState(false);
 
-  const { data: fetchedData, isLoading, isError, error } = useStudents();
-  const [data, setData] = React.useState<z.infer<typeof schema>[]>([]);
+  // const { data: fetchedData, isLoading, isError, error } = useStudents();
+  // const [data, setData] = React.useState<z.infer<typeof schema>[]>([]);
 
-  // const [data, setData] = React.useState(() => initialData)
+  const [data, setData] = React.useState(() => initialData)
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({})
@@ -341,10 +341,8 @@ export function DataTable({
   }, []);
 
   React.useEffect(() => {
-    if (fetchedData) {
-      setData(fetchedData);
-    }
-  }, [fetchedData]);
+    setData(initialData);
+  }, [initialData]);
 
 
   if (!isClient) {
@@ -355,11 +353,6 @@ export function DataTable({
       </div>
     );
   }
-
-  if (isError) {
-    return <div className="text-destructive p-4">Error: {error?.message}</div>;
-  }
-
 
   const sortableId = React.useId()
   const sensors = useSensors(

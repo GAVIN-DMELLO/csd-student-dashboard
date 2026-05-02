@@ -1,30 +1,15 @@
+"use client";
+
 import { AppSidebar } from "@/components/app-sidebar"
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
-// import { DataTable } from "@/components/data-table"
+import { DataTable } from "@/components/data-table"
 import { SectionCards } from "@/components/section-cards"
 import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 
-import data from "./data.json"
 
 import { useStudents } from "@/app/customComponents/fetchTableData"
 import { Loader2 } from "lucide-react"
-
-import dynamic from 'next/dynamic';
-
-
-const DataTable = dynamic(
-  () => import('@/components/data-table').then((mod) => mod.DataTable),
-  { 
-    ssr: false,
-    loading: () => (
-      <div className="flex h-64 w-full items-center justify-center">
-        Initializing CSD Dashboard...
-      </div>
-    )
-  }
-);
-
 
 
 export default function Page() {
