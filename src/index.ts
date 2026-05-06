@@ -160,6 +160,57 @@ app.get("/api/marks/analysis/:usn", async (req, res) => {
   }
 });
 
+
+
+//test for automation
+// Your route for fetching IA1 marks
+app.get('/api/marks/ia1', async (req , res) => {
+  try {
+    // 1. Fetch students and their nested IA_no = 1 marks
+    const studentsData = await prisma.student.findMany({
+      select: {
+        email: true,
+        marks: {
+          where: { 
+            iaNo: 1 
+          },
+          select: {
+            subcode: true,
+            marks: true,
+          },
+        },
+      },
+    });
+
+    // 2. Transform the data into the requested shape
+    const formattedResult = studentsData.map((student) => {
+      // Initialize the object with the email first
+      const studentRecord: Record<string, any> = { 
+        email: student.email 
+      };
+
+      // Dynamically add each subject code as a key with its corresponding mark
+      student.marks.forEach((markEntry) => {
+        studentRecord[markEntry.subcode] = markEntry.marks;
+      });
+
+      return studentRecord;
+    });
+
+    // 3. Send the final array
+    return res.status(200).json(formattedResult);
+
+  } catch (error) {
+    console.error("Error fetching IA1 marks:", error);
+    return res.status(500).json({ error: "Failed to fetch marks data" });
+  }
+});
+
+// Start the server (if you don't already have this)
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+
   
 
 
