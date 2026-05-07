@@ -68,11 +68,11 @@ export function SectionCards() {
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            Down 20% this period{" "}
+            Average Marks Of 47 students Combined{" "}
             <TrendingDownIcon className="size-4" />
           </div>
           <div className="text-muted-foreground">
-            Acquisition needs attention
+            
           </div>
         </CardFooter>
       </Card>
@@ -92,17 +92,17 @@ export function SectionCards() {
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            Strong user retention{" "}
+            Last Updated On - 27-04-2026 {" "}
             <TrendingUpIcon className="size-4" />
           </div>
-          <div className="text-muted-foreground">Engagement exceed targets</div>
+          <div className="text-muted-foreground"></div>
         </CardFooter>
       </Card>
       <Card className="@container/card">
         <CardHeader>
           <CardDescription>Pass / Fail Ratio</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            0 / 0
+            N / A
           </CardTitle>
           <CardAction>
             <Badge variant="outline">
@@ -114,10 +114,10 @@ export function SectionCards() {
         </CardHeader>
         <CardFooter className="flex-col items-start gap-1.5 text-sm">
           <div className="line-clamp-1 flex gap-2 font-medium">
-            Steady performance increase{" "}
+            ---{" "}
             <TrendingUpIcon className="size-4" />
           </div>
-          <div className="text-muted-foreground">Meets growth projections</div>
+          <div className="text-muted-foreground">---</div>
         </CardFooter>
       </Card>
     </div>
