@@ -30,7 +30,7 @@ export function NavMain({
             >
               <CirclePlusIcon
               />
-              <span>Quick Create</span>
+              <span>4TH SEM</span>
             </SidebarMenuButton>
             <Button
               size="icon"
