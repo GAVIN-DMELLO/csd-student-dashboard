@@ -320,6 +320,10 @@ app.post('/extra_activities' , async(req , res)=>{
 });
 
 
+app.get('/api/ping', (req, res) => {
+  res.status(200).json({ message: "Server is awake!" });
+});
+
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
