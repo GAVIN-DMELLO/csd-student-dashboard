@@ -25,45 +25,45 @@ const data = {
   },
   navMain: [
     {
-      title: "Dashboard",
+      title: "CSD-2028",
       url: "#",
       icon: (
         <LayoutDashboardIcon
         />
       ),
-    },
-    {
-      title: "Lifecycle",
-      url: "#",
-      icon: (
-        <ListIcon
-        />
-      ),
-    },
-    {
-      title: "Analytics",
-      url: "#",
-      icon: (
-        <ChartBarIcon
-        />
-      ),
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: (
-        <FolderIcon
-        />
-      ),
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: (
-        <UsersIcon
-        />
-      ),
-    },
+    }
+    // {
+    //   title: "Lifecycle",
+    //   url: "#",
+    //   icon: (
+    //     <ListIcon
+    //     />
+    //   ),
+    // },
+    // {
+    //   title: "Analytics",
+    //   url: "#",
+    //   icon: (
+    //     <ChartBarIcon
+    //     />
+    //   ),
+    // },
+    // {
+    //   title: "Projects",
+    //   url: "#",
+    //   icon: (
+    //     <FolderIcon
+    //     />
+    //   ),
+    // },
+    // {
+    //   title: "Team",
+    //   url: "#",
+    //   icon: (
+    //     <UsersIcon
+    //     />
+    //   ),
+    // },
   ],
   navClouds: [
     {
@@ -147,7 +147,10 @@ const data = {
         />
       ),
     },
-  ],
+  ]
+}
+  
+    /*
   documents: [
     {
       name: "Data Library",
@@ -175,6 +178,8 @@ const data = {
     },
   ],
 }
+*/
+
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -196,7 +201,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
+        {/* <NavDocuments items={data.documents} /> */}
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
